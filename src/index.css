@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PetNurse AI - Apple Human Interface Design System */
+
+@layer base {
+  :root {
+    /* === PetNurse AI — Cal AI-inspired palette === */
+
+    /* Background: Pure White #FFFFFF */
+    --background: 0 0% 100%;
+    /* Foreground: Dark Charcoal #0E1A2B */
+    --foreground: 214 50% 11%;
+
+    /* Cards: Light Neutral #F8F9FA */
+    --card: 210 17% 98%;
+    --card-foreground: 214 50% 11%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 50% 11%;
+
+    /* Primary: Deep Indigo #1E3A8A */
+    --primary: 221 64% 33%;
+    --primary-foreground: 0 0% 100%;
+    --primary-accent: 195 100% 50%; /* Accent Teal #00C2FF */
+
+    /* Secondary: Light Gray #E5E7EB */
+    --secondary: 220 13% 91%;
+    --secondary-foreground: 214 50% 11%;
+
+    /* Muted: Neutral Gray surface */
+    --muted: 210 17% 96%;
+    --muted-foreground: 220 9% 46%; /* Mid Gray #6B7280 */
+
+    /* Accent: Electric Teal #00C2FF */
+    --accent: 195 100% 95%;
+    --accent-foreground: 195 100% 40%;
+
+    /* Emergency States */
+    --emergency-red: 0 72% 51%;
+    --emergency-red-foreground: 0 0% 100%;
+    --emergency-red-bg: 0 100% 97%;
+
+    --warning-amber: 38 92% 50%;
+    --warning-amber-foreground: 38 92% 15%;
+    --warning-amber-bg: 38 100% 97%;
+
+    --safe-green: 142 71% 45%;
+    --safe-green-foreground: 0 0% 100%;
+    --safe-green-bg: 142 76% 97%;
+
+    /* Destructive */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders: #E5E7EB */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 64% 33%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 214 50% 11%; /* Dark Charcoal */
+    --sidebar-foreground: 210 17% 95%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 45% 18%;
+    --sidebar-accent-foreground: 210 17% 95%;
+    --sidebar-border: 214 40% 18%;
+    --sidebar-ring: 195 100% 50%;
+
+    /* Navigation */
+    --nav-height: 5.5rem;
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .dark {
+    /* Background: Dark Charcoal #0E1A2B */
+    --background: 214 50% 11%;
+    --foreground: 210 17% 95%;
+
+    /* Cards: slightly lighter charcoal */
+    --card: 214 45% 15%;
+    --card-foreground: 210 17% 95%;
+
+    --popover: 214 45% 15%;
+    --popover-foreground: 210 17% 95%;
+
+    /* Primary: brighter indigo for dark mode */
+    --primary: 221 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-accent: 195 100% 50%;
+
+    --secondary: 214 40% 20%;
+    --secondary-foreground: 210 17% 90%;
+
+    --muted: 214 40% 18%;
+    --muted-foreground: 220 9% 60%;
+
+    --accent: 195 80% 18%;
+    --accent-foreground: 195 100% 65%;
+
+    --emergency-red: 0 72% 55%;
+    --emergency-red-bg: 0 50% 12%;
+
+    --warning-amber: 38 92% 55%;
+    --warning-amber-bg: 38 50% 12%;
+
+    --safe-green: 142 71% 50%;
+    --safe-green-bg: 142 50% 12%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 40% 22%;
+    --input: 214 40% 22%;
+    --ring: 221 60% 50%;
+
+    --sidebar-background: 214 55% 8%;
+    --sidebar-foreground: 210 17% 95%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 214 45% 15%;
+    --sidebar-accent-foreground: 195 100% 65%;
+    --sidebar-border: 214 40% 18%;
+    --sidebar-ring: 195 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-foreground;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  /* Safe area for mobile notch */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: calc(var(--nav-height) + var(--safe-area-bottom));
+  }
+}
+
+@layer components {
+  /* Apple-style glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .dark .glass {
+    background: rgba(28, 28, 30, 0.8);
+  }
+
+  /* Apple-style cards with soft shadow */
+  .apple-card {
+    @apply bg-card rounded-[20px];
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Status cards with Apple styling */
+  .status-card {
+    @apply transition-all duration-300 ease-out rounded-[20px];
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  .status-card-red {
+    @apply bg-[hsl(var(--emergency-red-bg))] border-2 border-[hsl(var(--emergency-red))];
+    animation: pulse-red 2s infinite;
+  }
+
+  .status-card-yellow {
+    @apply bg-[hsl(var(--warning-amber-bg))] border-2 border-[hsl(var(--warning-amber))];
+  }
+
+  .status-card-green {
+    @apply bg-[hsl(var(--safe-green-bg))] border-2 border-[hsl(var(--safe-green))];
+  }
+
+  /* Message bubbles with Apple styling */
+  .message-bubble {
+    @apply rounded-[20px] px-5 py-4 max-w-[85%];
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .message-user {
+    @apply bg-primary text-primary-foreground ml-auto;
+    border-bottom-right-radius: 6px;
+  }
+
+  .message-assistant {
+    @apply bg-card mr-auto;
+    border-bottom-left-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Bottom navigation with glassmorphism */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 glass;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: var(--safe-area-bottom);
+  }
+
+  /* Apple-style button press effect */
+  .apple-press {
+    @apply transition-transform duration-100 active:scale-[0.98];
+  }
+
+  /* Apple-style separator */
+  .apple-separator {
+    @apply h-[0.5px] bg-[#D2D2D7];
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Apple-style text gradient */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(211,100%,45%)] to-[hsl(211,100%,60%)];
+  }
+
+  /* Container with Apple spacing */
+  .apple-container {
+    @apply px-5 max-w-2xl mx-auto;
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--emergency-red) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px hsl(var(--emergency-red) / 0);
+  }
+}
+
+/* Smooth page/step transitions */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 0.2s ease-in forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.25s ease-out forwards;
+}
+
+/* Skeleton shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted) / 0.5) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

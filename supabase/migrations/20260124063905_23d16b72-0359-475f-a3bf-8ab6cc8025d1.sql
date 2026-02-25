@@ -1,0 +1,73 @@
+-- Create the user_roles table with proper role-based access
+CREATE TABLE public.user_roles (
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
+    role text NOT NULL CHECK (role IN ('admin', 'moderator', 'user')),
+    created_at timestamp with time zone NOT NULL DEFAULT now(),
+    UNIQUE (user_id, role)
+);
+
+-- Enable RLS on user_roles
+ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+
+-- Create the security definer function to check roles
+CREATE OR REPLACE FUNCTION public.has_role(_user_id uuid, _role text)
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.user_roles
+    WHERE user_id = _user_id
+      AND role = _role
+  )
+$$;
+
+-- RLS Policy: Users can view their own roles
+CREATE POLICY "Users can view their own roles"
+ON public.user_roles
+FOR SELECT
+USING (auth.uid() = user_id);
+
+-- RLS Policy: Admins can view all roles
+CREATE POLICY "Admins can view all roles"
+ON public.user_roles
+FOR SELECT
+USING (public.has_role(auth.uid(), 'admin'));
+
+-- RLS Policy: Admins can insert roles
+CREATE POLICY "Admins can insert roles"
+ON public.user_roles
+FOR INSERT
+WITH CHECK (public.has_role(auth.uid(), 'admin'));
+
+-- RLS Policy: Admins can delete roles
+CREATE POLICY "Admins can delete roles"
+ON public.user_roles
+FOR DELETE
+USING (public.has_role(auth.uid(), 'admin'));
+
+-- Admin policies for viewing all data
+CREATE POLICY "Admins can view all profiles"
+ON public.profiles
+FOR SELECT
+USING (public.has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can view all triage history"
+ON public.triage_history
+FOR SELECT
+USING (public.has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can view all pets"
+ON public.pets
+FOR SELECT
+USING (public.has_role(auth.uid(), 'admin'));
+
+-- Admins can update profiles (for managing premium status)
+CREATE POLICY "Admins can update all profiles"
+ON public.profiles
+FOR UPDATE
+USING (public.has_role(auth.uid(), 'admin'));

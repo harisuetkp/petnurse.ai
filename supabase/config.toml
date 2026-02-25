@@ -1,0 +1,46 @@
+project_id = "luqnoujkuiqptfqnhnod"
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.admin-add-influencer]
+verify_jwt = false
+
+[functions.handle-referral-payout]
+verify_jwt = false
+
+[functions.check-toxicity]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.track-referral-click]
+verify_jwt = false
+
+[functions.generate-pet-recommendations]
+verify_jwt = false
+
+[functions.send-welcome]
+verify_jwt = false
+
+[functions.validate-email]
+verify_jwt = false
+
+[functions.generate-blog-draft]
+verify_jwt = false
+
+[functions.sitemap]
+verify_jwt = false
+
+[functions.publish-scheduled]
+verify_jwt = false
+
+[functions.rss-feed]
+verify_jwt = false
+
+[functions.ping-google]
+verify_jwt = false
+
+[functions.backfill-blog-images]
+verify_jwt = false

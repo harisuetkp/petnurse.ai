@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "246224012233",
+    "project_id": "harisprojects-afc67",
+    "storage_bucket": "harisprojects-afc67.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246224012233:android:6cac6e17d5527140a69e18",
+        "android_client_info": {
+          "package_name": "com.hayworkapp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQIhv4N2JH59wrPAp5sKijc4p1e-CJrA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246224012233:android:646048956b1e1915a69e18",
+        "android_client_info": {
+          "package_name": "com.petnurseapp.ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQIhv4N2JH59wrPAp5sKijc4p1e-CJrA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246224012233:android:ec74dfaa4fe9cba1a69e18",
+        "android_client_info": {
+          "package_name": "com.vlocalsapp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQIhv4N2JH59wrPAp5sKijc4p1e-CJrA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
