@@ -5,7 +5,7 @@
 
 import { useState, useCallback } from "react";
 import { isNative, isIOS } from "@/lib/platform";
-import { useRevenueCat } from "@/hooks/useRevenueCat";
+import { useNativePurchases } from "@/hooks/useNativePurchases";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,7 +19,7 @@ interface PurchaseState {
 
 export function usePurchases() {
   const native = isNative();
-  const revenueCat = useRevenueCat();
+  const nativePurchasesHook = useNativePurchases();
   const { toast } = useToast();
 
   const [state, setState] = useState<PurchaseState>({
@@ -66,23 +66,23 @@ export function usePurchases() {
     [],
   );
 
-  // ── Native IAP via RevenueCat ────────────────────────────────────────
+  // ── Native IAP ────────────────────────────────────────
 
   const nativeCheckout = useCallback(
     async (priceType: PriceType) => {
-      // Map priceType to RevenueCat package identifier
+      // Map priceType to package identifier
       const packageMap: Record<PriceType, string> = {
-        yearly: "$rc_annual",
-        monthly: "$rc_monthly",
-        oneTime: "single_assessment",
+        yearly: "com.petnurseapp.ai.annual",
+        monthly: "com.petnurseapp.ai.monthly",
+        oneTime: "com.petnurseapp.ai.single",
       };
 
-      const success = await revenueCat.purchasePackage(packageMap[priceType]);
+      const success = await nativePurchasesHook.purchasePackage(packageMap[priceType]);
       if (!success) {
         throw new Error("Purchase was cancelled or failed");
       }
     },
-    [revenueCat],
+    [nativePurchasesHook],
   );
 
   // ── Unified purchase method ──────────────────────────────────────────
@@ -123,7 +123,7 @@ export function usePurchases() {
 
     setState((s) => ({ ...s, isLoading: "yearly" }));
     try {
-      const restored = await revenueCat.restorePurchases();
+      const restored = await nativePurchasesHook.restorePurchases();
       if (restored) {
         toast({ title: "Purchases Restored", description: "Your premium access has been restored." });
       } else {
@@ -137,14 +137,14 @@ export function usePurchases() {
     } finally {
       setState((s) => ({ ...s, isLoading: null }));
     }
-  }, [native, revenueCat, toast]);
+  }, [native, nativePurchasesHook, toast]);
 
   return {
     purchase,
     restore,
     isLoading: state.isLoading,
     isNativeIAP: state.isNativeIAP,
-    /** RevenueCat packages (only populated on iOS) */
-    packages: revenueCat.packages,
+    /** Packages (only populated on iOS) */
+    packages: nativePurchasesHook.packages,
   };
 }

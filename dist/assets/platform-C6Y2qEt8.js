@@ -1,0 +1,1 @@
+import{y as t}from"./index-D1KjIFF5.js";function r(){if(t.isNativePlatform()){const i=t.getPlatform();if(i==="ios")return"ios";if(i==="android")return"android"}return"web"}function a(){return t.isNativePlatform()}function n(){return r()==="ios"}export{n as a,a as i};
