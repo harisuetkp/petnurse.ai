@@ -24,6 +24,23 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+    
+    <key>NSAppTransportSecurity</key>
+    <dict/>
+    <key>NSCameraUsageDescription</key>
+    <string>Processing your camera input for scanning purposes </string>
+    <key>NSHumanReadableCopyright</key>
+    <string></string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>To see nearby Chargers allow your current location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>To record your property video allow camera and mic to record video and add them to attachment fields.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -48,6 +65,8 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.246224012233-d850icbkj3tovjtlfj6mb31fjv73h83o</string>

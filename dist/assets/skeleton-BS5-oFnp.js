@@ -1,1 +1,0 @@
-import{j as r}from"./vendor-data-CaJSbdUh.js";import{l as t}from"./index-D1KjIFF5.js";function n({className:m,...e}){return r.jsx("div",{className:t("rounded-md bg-muted animate-shimmer",m),...e})}export{n as S};

@@ -32,9 +32,11 @@ export function useNativePurchases() {
 
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
+      console.log("Fetching native products with identifiers:", ["com.petnurseapp.ai.annual", "com.petnurseapp.ai.monthly", "com.petnurseapp.ai.single"]);
       NativePurchases.getProducts({
         productIdentifiers: ["com.petnurseapp.ai.annual", "com.petnurseapp.ai.monthly", "com.petnurseapp.ai.single"]
       }).then((result) => {
+        console.log("NativePurchases.getProducts result:", result);
         if (result.products) {
           setState((s) => ({
             ...s,
@@ -47,7 +49,9 @@ export function useNativePurchases() {
             isReady: true
           }));
         }
-      }).catch(e => console.error("InAppPurchase Error:", e));
+      }).catch(e => {
+        console.error("NativePurchases.getProducts individual Error:", e);
+      });
     }
   }, []);
 
