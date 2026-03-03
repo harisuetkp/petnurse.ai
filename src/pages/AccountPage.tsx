@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback, forwardRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { User, LogOut, Crown, FileText, Shield, ChevronRight, Loader2, Mail, Users, Trash2 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
+import { PageTransition } from "@/components/PageTransition";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -176,24 +178,17 @@ const AccountPage = forwardRef<HTMLDivElement>(function AccountPage(_props, _ref
   }
 
   return (
-    <div className="min-h-screen pb-24">
-      {/* Header */}
-      <header className="safe-area-top glass sticky top-0 z-40">
-        <div className="flex items-center gap-4 px-5 py-4 max-w-2xl mx-auto">
-          <div className="p-3 rounded-2xl bg-primary/10">
-            <User className="h-6 w-6 text-primary" />
-          </div>
-          <h1 className="text-lg font-semibold text-foreground">{t("account.title")}</h1>
-        </div>
-      </header>
-
-      {/* Content */}
-      <div className="px-5 py-8 max-w-2xl mx-auto space-y-6">
+    <PageTransition className="min-h-screen pb-24">
+      <PageHeader
+        title={t("account.title")}
+        icon={<User className="h-4 w-4 text-primary" />}
+      />
+      <div className="px-5 py-5 max-w-2xl mx-auto space-y-4">
         {/* Profile Card */}
-        <div className="apple-card p-5">
-          <div className="flex items-center gap-4">
-            <div className="p-4 rounded-full bg-primary/10">
-              <User className="h-8 w-8 text-primary" />
+        <div className="apple-card p-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-full bg-primary/10">
+              <User className="h-6 w-6 text-primary" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
@@ -221,13 +216,13 @@ const AccountPage = forwardRef<HTMLDivElement>(function AccountPage(_props, _ref
             to="/premium"
             className="flex items-center justify-between p-5 transition-colors hover:bg-muted/50 active:scale-[0.99]"
           >
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-warning-amber/10">
-                <Crown className="h-5 w-5 text-warning-amber" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-warning-amber/10">
+                <Crown className="h-4 w-4 text-warning-amber" />
               </div>
               <div>
-                <p className="font-semibold text-foreground">{t("premium.subscription")}</p>
-                <p className="text-sm text-muted-foreground">
+              <p className="font-medium text-sm text-foreground">{t("premium.subscription")}</p>
+                <p className="text-xs text-muted-foreground">
                   {isPremium ? t("premium.managePlan") : t("premium.upgrade")}
                 </p>
               </div>
@@ -344,7 +339,7 @@ const AccountPage = forwardRef<HTMLDivElement>(function AccountPage(_props, _ref
           </a>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 });
 

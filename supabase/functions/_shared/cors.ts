@@ -8,6 +8,10 @@ const ALLOWED_ORIGINS = [
   "https://www.petnurseai.com",
   "https://id-preview--11c14703-eb67-408e-be6f-404e0a84c680.lovable.app",
   "https://11c14703-eb67-408e-be6f-404e0a84c680.lovableproject.com",
+  // Capacitor (iOS/Android native apps)
+  "capacitor://localhost",
+  "http://localhost",
+  // Dev
   "http://localhost:5173",
   "http://localhost:3000",
   "http://localhost:8080",

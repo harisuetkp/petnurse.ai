@@ -50,7 +50,7 @@ export function BottomNav() {
 
   return (
     <nav className="bottom-nav z-50" aria-label="Main navigation" role="navigation">
-      <div className="flex items-center justify-around h-[70px] max-w-lg mx-auto px-3">
+      <div className="flex items-center justify-around h-[56px] max-w-lg mx-auto px-2">
         {navItems.map(({ to, icon: Icon, labelKey }) => {
           const isActive = location.pathname === to;
           const label = t(labelKey);

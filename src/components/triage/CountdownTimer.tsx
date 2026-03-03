@@ -42,14 +42,14 @@ export const CountdownTimer = memo(function CountdownTimer() {
     <div className={`flex items-center justify-center gap-3 py-3 px-4 rounded-xl border ${
       isUrgent 
         ? "bg-emergency-red/5 border-emergency-red/20" 
-        : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800"
+        : "bg-warning-amber/5 border-warning-amber/20"
     }`}>
       <Clock className={`h-4 w-4 shrink-0 ${
-        isUrgent ? "text-emergency-red animate-pulse" : "text-amber-600 dark:text-amber-400"
+        isUrgent ? "text-emergency-red animate-pulse" : "text-warning-amber"
       }`} />
       <div className="flex items-center gap-2">
         <p className={`text-xs font-medium ${
-          isUrgent ? "text-emergency-red" : "text-amber-700 dark:text-amber-300"
+          isUrgent ? "text-emergency-red" : "text-warning-amber"
         }`}>
           Report expires in
         </p>
@@ -61,16 +61,16 @@ export const CountdownTimer = memo(function CountdownTimer() {
           ].map(({ value, label }, i) => (
             <div key={i} className="flex items-center">
               <span className={`font-mono font-bold text-sm tabular-nums ${
-                isUrgent ? "text-emergency-red" : "text-amber-800 dark:text-amber-200"
+                isUrgent ? "text-emergency-red" : "text-foreground"
               }`}>
                 {String(value).padStart(2, "0")}
               </span>
               <span className={`text-[10px] ${
-                isUrgent ? "text-emergency-red/70" : "text-amber-600/70 dark:text-amber-400/70"
+                isUrgent ? "text-emergency-red/70" : "text-warning-amber/70"
               }`}>{label}</span>
               {i < 2 && (
                 <span className={`mx-0.5 text-xs ${
-                  isUrgent ? "text-emergency-red/50" : "text-amber-500/50"
+                  isUrgent ? "text-emergency-red/50" : "text-muted-foreground/40"
                 }`}>:</span>
               )}
             </div>

@@ -1,5 +1,5 @@
 import { memo, useCallback, useState, forwardRef } from "react";
-import { Lock, Sparkles, Shield, CheckCircle2, Zap, Clock, MessageCircle, History, Loader2, Star, Heart, DollarSign, RotateCcw } from "lucide-react";
+import { Lock, Sparkles, Shield, CheckCircle2, Zap, Clock, MessageCircle, History, Loader2, Star, Heart, DollarSign, RotateCcw, AlertTriangle } from "lucide-react";
 import { ReviewsSocialProof } from "@/components/ReviewsSocialProof";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +10,8 @@ import { BlurredReportPreview } from "./BlurredReportPreview";
 import { LiveActivityIndicator } from "./LiveActivityIndicator";
 import { TrustCredibilityBadges } from "./TrustCredibilityBadges";
 import { ExitIntentNudge } from "./ExitIntentNudge";
+import { CountdownTimer } from "./CountdownTimer";
+import { usePaywallDismissal } from "@/hooks/usePaywallDismissal";
 
 interface LockedResultCardProps {
   onUnlock: () => void;
@@ -39,6 +41,33 @@ const blurredSections = [
   "Health Timeline Records",
 ];
 
+// Context-aware urgency messaging based on report status
+function getUrgencyMessage(status?: TriageStatus, petName?: string): { headline: string; subtext: string } | null {
+  const name = petName || "your pet";
+  if (status === "RED") {
+    return {
+      headline: `${name}'s symptoms indicate potential urgency`,
+      subtext: "Access the full analysis to understand the risk level and recommended immediate actions.",
+    };
+  }
+  if (status === "YELLOW") {
+    return {
+      headline: `${name}'s assessment needs your attention`,
+      subtext: "Possible conditions have been identified — review the full analysis to know what to monitor.",
+    };
+  }
+  return null;
+}
+
+// Softer messaging for returning users
+function getSoftApproachMessage(petName?: string): { headline: string; subtext: string } {
+  const name = petName || "your pet";
+  return {
+    headline: `Still thinking about ${name}'s health?`,
+    subtext: "Your complete assessment is ready whenever you are. Start with a free 7-day trial — cancel anytime.",
+  };
+}
+
 export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCardProps>(function LockedResultCard({
   onUnlock,
   reportStatus,
@@ -47,6 +76,11 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
   petName,
 }, ref) {
   const { purchase, restore, isLoading, isNativeIAP } = usePurchases();
+  const { dismissalCount, recordDismissal, shouldShowSoftApproach } = usePaywallDismissal();
+
+  const urgencyMsg = getUrgencyMessage(reportStatus, petName);
+  const softMsg = getSoftApproachMessage(petName);
+  const displayMsg = shouldShowSoftApproach ? softMsg : urgencyMsg;
 
   return (
     <div ref={ref} className="animate-slide-up space-y-5">
@@ -57,6 +91,28 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
         petName={petName}
         previewData={previewData}
       />
+
+      {/* Loss Aversion — what they're missing */}
+      {previewData && (previewData.diagnosesCount > 0 || previewData.hasEmergency) && (
+        <div className="rounded-xl border border-warning-amber/30 bg-warning-amber/5 p-3.5">
+          <div className="flex items-start gap-2.5">
+            <AlertTriangle className="h-4 w-4 text-warning-amber mt-0.5 shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">
+                {previewData.diagnosesCount} possible condition{previewData.diagnosesCount !== 1 ? "s" : ""} identified
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {previewData.hasEmergency
+                  ? "Including potential emergency indicators. Access the full report to see risk levels and immediate action steps."
+                  : "Your vet will need this information. Unlock the full analysis to prepare for your visit."}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Countdown Timer — report expires */}
+      <CountdownTimer />
 
       {/* Blurred Premium Sections */}
       <div className="rounded-2xl border border-border bg-card p-4 space-y-2">
@@ -73,10 +129,10 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
         ))}
       </div>
 
-      {/* Live Activity Indicator */}
+      {/* Live Activity Indicator — now with real DB count */}
       <LiveActivityIndicator />
 
-      {/* Emotional Headline */}
+      {/* Context-Aware Headline */}
       <div className="text-center space-y-2">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mx-auto">
           <Shield className="h-7 w-7 text-primary" />
@@ -85,10 +141,16 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
           Structured AI triage system
         </p>
         <h2 className="text-2xl font-bold text-foreground tracking-tight">
-          {petName ? `Complete Assessment for ${petName}` : "Access Complete Clinical Assessment"}
+          {displayMsg
+            ? displayMsg.headline
+            : petName
+              ? `Complete Assessment for ${petName}`
+              : "Access Complete Clinical Assessment"}
         </h2>
         <p className="text-sm text-muted-foreground">
-          Start with a <span className="font-semibold text-foreground">7-day free trial</span> on the annual plan. Full access to structured triage analysis.
+          {displayMsg
+            ? displayMsg.subtext
+            : <>Start with a <span className="font-semibold text-foreground">7-day free trial</span> on the annual plan. Full access to structured triage analysis.</>}
         </p>
       </div>
 
@@ -277,7 +339,7 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
         </span>
       </div>
 
-      {/* Real Customer Reviews Social Proof */}
+      {/* Real Customer Reviews Social Proof from DB */}
       <ReviewsSocialProof maxReviews={3} />
 
       {/* Disclaimer */}
@@ -301,7 +363,7 @@ export const LockedResultCard = memo(forwardRef<HTMLDivElement, LockedResultCard
             </button>
           </div>
           <p className="text-xs text-muted-foreground">
-            © 2025 PetNurse AI LLC. Structured triage guidance system.
+            © 2026 PetNurse AI LLC. Structured triage guidance system.
           </p>
         </div>
       </div>

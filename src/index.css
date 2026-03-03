@@ -75,7 +75,7 @@
     --sidebar-ring: 195 100% 50%;
 
     /* Navigation */
-    --nav-height: 5.5rem;
+    --nav-height: 3.5rem;
     --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   }
 
@@ -148,6 +148,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
+    /* Prevent iOS text size inflation */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -159,12 +162,46 @@
   }
 
   /* Safe area for mobile notch */
-  .safe-area-top {
+  .safe-area-top, .pt-safe {
     padding-top: env(safe-area-inset-top, 0px);
   }
 
   .safe-area-bottom {
     padding-bottom: calc(var(--nav-height) + var(--safe-area-bottom));
+  }
+
+  /* Capacitor iOS: expose safe area as CSS custom properties for JS access */
+  :root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+
+  /* Prevent overflow and ensure proper scrolling on iOS */
+  html, body {
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+
+  /* iOS input zoom prevention (font must be >= 16px) */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Fix iOS fixed positioning issues in Capacitor */
+  .bottom-nav {
+    position: fixed;
+  }
+
+  /* Native-like momentum scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent pull-to-refresh in Capacitor */
+  body {
+    overscroll-behavior-y: contain;
   }
 }
 

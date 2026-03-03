@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { TrendingUp, Calendar, Activity, Stethoscope, ChevronLeft, ChevronRight } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import { PageTransition } from "@/components/PageTransition";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -107,18 +109,11 @@ function TimelinePage() {
   const today = new Date();
 
   return (
-    <div className="min-h-screen pb-4">
-      <header className="safe-area-top px-5 pt-4 pb-2">
-        <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-accent">
-            <TrendingUp className="h-5 w-5 text-accent-foreground" />
-          </div>
-          <h1 className="text-lg font-bold text-foreground">
-            {activePet ? `${activePet.name}'s Timeline` : "Health Timeline"}
-          </h1>
-        </div>
-      </header>
-
+    <PageTransition className="min-h-screen pb-4">
+      <PageHeader
+        title={activePet ? `${activePet.name}'s Timeline` : "Health Timeline"}
+        icon={<TrendingUp className="h-4 w-4 text-accent-foreground" />}
+      />
       <div className="px-5 max-w-lg mx-auto space-y-6 mt-4">
         {/* Timeline gate for non-premium users with triage history */}
         {shouldGateTimeline && timelineItems.length > 3 && (
@@ -353,7 +348,7 @@ function TimelinePage() {
           )}
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }
 

@@ -1,5 +1,7 @@
 import { useState, useEffect, forwardRef, useCallback } from "react";
 import { MapPin, Phone, Clock, Navigation, Search, AlertCircle, Loader2 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -106,35 +108,30 @@ const ClinicFinderPage = forwardRef<HTMLDivElement>(function ClinicFinderPage(_p
   }, []);
 
   return (
-    <div ref={ref} className="min-h-screen">
+    <PageTransition ref={ref} className="min-h-screen">
       <SeoHead
         title="Find Emergency Vet Clinics Near You | PetNurse AI"
         description="Locate veterinary clinics and emergency animal hospitals near you. Get directions, hours, and phone numbers for nearby vet clinics — powered by PetNurse AI."
         canonicalPath="/clinic-finder"
       />
-      {/* Header */}
-      <header className="safe-area-top glass sticky top-0 z-40">
-        <div className="px-5 py-4 max-w-2xl mx-auto">
-          <div className="flex items-center gap-4 mb-5">
-            <div className="p-3 rounded-2xl bg-primary/10">
-              <MapPin className="h-6 w-6 text-primary" />
-            </div>
-            <h1 className="text-lg font-semibold text-foreground">Clinic Finder</h1>
-          </div>
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search clinics..."
-              className="pl-12 rounded-xl h-12 bg-card shadow-apple-card border-0"
-            />
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        title="Clinic Finder"
+        icon={<MapPin className="h-4 w-4 text-primary" />}
+      />
 
-      {/* Content */}
-      <div className="px-5 py-8 max-w-2xl mx-auto">
+      <div className="px-4 max-w-lg mx-auto pt-3">
+        <div className="relative mb-4">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search clinics..."
+            className="pl-11 rounded-xl h-11 bg-card border-border"
+          />
+        </div>
+      </div>
+
+      <div className="px-4 py-4 max-w-lg mx-auto">
         {/* Location status */}
         {locationError && (
           <div className="apple-card mb-5 p-4 flex items-center gap-4 bg-warning-amber-bg">
@@ -277,7 +274,7 @@ const ClinicFinderPage = forwardRef<HTMLDivElement>(function ClinicFinderPage(_p
           </div>
         )}
       </div>
-    </div>
+    </PageTransition>
   );
 });
 

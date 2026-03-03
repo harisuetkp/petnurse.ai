@@ -263,28 +263,24 @@ export default function AuthPage() {
                     </button>
                   </div>
 
-                  {Capacitor.isNativePlatform() && (
-                    <>
-                      <div className="relative my-4">
-                        <div className="absolute inset-0 flex items-center">
-                          <span className="w-full border-t" />
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                          <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-1 gap-3">
-                        <Button variant="outline" type="button" disabled={isLoading} onClick={handleAppleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
-                          <AppleIcon />
-                          {t("Continue With Apple") || "Continue with Apple"}
-                        </Button>
-                        <Button variant="outline" type="button" disabled={isLoading} onClick={handleGoogleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
-                          <GoogleIcon />
-                          {t("Continue With Google") || "Continue with Google"}
-                        </Button>
-                      </div>
-                    </>
-                  )}
+                  <div className="relative my-4">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-3">
+                    <Button variant="outline" type="button" disabled={isLoading} onClick={handleAppleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
+                      <AppleIcon />
+                      {t("Continue With Apple") || "Continue with Apple"}
+                    </Button>
+                    <Button variant="outline" type="button" disabled={isLoading} onClick={handleGoogleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
+                      <GoogleIcon />
+                      {t("Continue With Google") || "Continue with Google"}
+                    </Button>
+                  </div>
                 </form>
               </TabsContent>
 
@@ -338,28 +334,24 @@ export default function AuthPage() {
                     {isLoading ? t("auth.creatingAccount") : t("auth.createAccount")}
                   </Button>
 
-                  {Capacitor.isNativePlatform() && (
-                    <>
-                      <div className="relative my-4">
-                        <div className="absolute inset-0 flex items-center">
-                          <span className="w-full border-t" />
-                        </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                          <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-1 gap-3">
-                        <Button variant="outline" type="button" disabled={isLoading} onClick={handleAppleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
-                          <AppleIcon />
-                          {t("Continue With Apple") || "Continue with Apple"}
-                        </Button>
-                        <Button variant="outline" type="button" disabled={isLoading} onClick={handleGoogleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
-                          <GoogleIcon />
-                          {t("Continue With Google") || "Continue with Google"}
-                        </Button>
-                      </div>
-                    </>
-                  )}
+                  <div className="relative my-4">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-3">
+                    <Button variant="outline" type="button" disabled={isLoading} onClick={handleAppleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
+                      <AppleIcon />
+                      {t("Continue With Apple") || "Continue with Apple"}
+                    </Button>
+                    <Button variant="outline" type="button" disabled={isLoading} onClick={handleGoogleSignIn} className="h-12 rounded-2xl border-slate-200 dark:border-slate-800 font-medium">
+                      <GoogleIcon />
+                      {t("Continue With Google") || "Continue with Google"}
+                    </Button>
+                  </div>
                 </form>
               </TabsContent>
             </Tabs>

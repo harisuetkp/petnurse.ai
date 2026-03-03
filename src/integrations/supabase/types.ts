@@ -1046,6 +1046,7 @@ export type Database = {
           total_signups: number
         }[]
       }
+      get_total_assessment_count: { Args: never; Returns: number }
       get_users_for_admin: {
         Args: never
         Returns: {

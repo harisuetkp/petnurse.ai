@@ -26,12 +26,12 @@ interface PaywallModalProps {
 }
 
 const features = [
-  { icon: Zap, label: "Structured triage assessments" },
-  { icon: TrendingUp, label: "Weekly health trend reports" },
-  { icon: Clock, label: "24/7 symptom analysis" },
-  { icon: Shield, label: "Risk stratification guidance" },
-  { icon: MessageCircle, label: "Vet discussion summaries" },
-  { icon: History, label: "Longitudinal health records" },
+  { icon: Zap, label: "Unlimited symptom checks" },
+  { icon: TrendingUp, label: "Health trend reports" },
+  { icon: Clock, label: "24/7 — nights & weekends" },
+  { icon: Shield, label: "Food & toxin safety checks" },
+  { icon: MessageCircle, label: "Vet-ready report summaries" },
+  { icon: History, label: "Multi-pet health records" },
 ];
 
 export function PaywallModal({ open, onOpenChange, triggerContext }: PaywallModalProps) {
@@ -49,7 +49,7 @@ export function PaywallModal({ open, onOpenChange, triggerContext }: PaywallModa
             <span className="text-xs font-semibold text-primary uppercase tracking-wider">Structured AI Triage System</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center tracking-tight leading-tight">
-            Access Complete Clinical Assessment
+            See What's Going On With Your Pet
           </h2>
           {triggerContext && (
             <p className="text-sm text-foreground/80 text-center mt-2 font-medium bg-primary/5 rounded-lg py-2 px-3">
@@ -57,7 +57,7 @@ export function PaywallModal({ open, onOpenChange, triggerContext }: PaywallModa
             </p>
           )}
           <p className="text-sm text-muted-foreground text-center mt-3">
-            Full structured triage analysis, risk stratification, and evidence-informed monitoring guidance.
+            Your pet's symptoms have been analyzed. Unlock the full report to see possible causes, severity, and what to do next.
           </p>
           {/* Authority markers */}
           <div className="flex items-center justify-center gap-3 mt-3 text-xs text-muted-foreground">
@@ -216,8 +216,8 @@ export function PaywallModal({ open, onOpenChange, triggerContext }: PaywallModa
             <div className="flex items-center justify-center gap-0.5 mb-1">
               {[1,2,3,4,5].map(i => <Star key={i} className="h-3 w-3 fill-warning-amber text-warning-amber" />)}
             </div>
-            <p className="text-xs text-foreground">"The structured report identified early warning signs and gave my vet a clear timeline of symptoms."</p>
-            <p className="text-[10px] text-muted-foreground mt-1">— Sarah M., verified user</p>
+            <p className="text-xs text-foreground">"My dog was acting off — the report showed early warning signs I'd have missed. My vet said it was caught just in time."</p>
+            <p className="text-[10px] text-muted-foreground mt-1">— Jessica R., verified user</p>
           </div>
         </div>
 

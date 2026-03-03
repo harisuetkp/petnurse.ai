@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useCallback, forwardRef } from "react";
 import { FlaskConical, AlertTriangle, CheckCircle, Loader2, Search, Info, RefreshCw, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -100,10 +100,10 @@ const urgencyConfig = {
   },
 } as const;
 
-export const ToxicologyCheckCard = memo(function ToxicologyCheckCard({ 
+export const ToxicologyCheckCard = memo(forwardRef<HTMLDivElement, ToxicologyCheckCardProps>(function ToxicologyCheckCard({ 
   petSpecies, 
   onResult 
-}: ToxicologyCheckCardProps) {
+}, ref) {
   const [ingredient, setIngredient] = useState("");
   const [isChecking, setIsChecking] = useState(false);
   const [result, setResult] = useState<ToxicityResult | null>(null);
@@ -157,7 +157,7 @@ export const ToxicologyCheckCard = memo(function ToxicologyCheckCard({
   const Icon = config?.icon;
 
   return (
-    <div className="apple-card p-5 space-y-4">
+    <div className="apple-card p-5 space-y-4" ref={ref}>
       <div className="flex items-center gap-3">
         <div className="p-2.5 rounded-xl bg-primary/10">
           <FlaskConical className="h-5 w-5 text-primary" />
@@ -285,4 +285,4 @@ export const ToxicologyCheckCard = memo(function ToxicologyCheckCard({
       </p>
     </div>
   );
-});
+}));

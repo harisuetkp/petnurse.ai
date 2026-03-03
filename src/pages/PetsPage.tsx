@@ -1,5 +1,7 @@
 import { useState, useRef, useMemo } from "react";
 import { PawPrint, Plus, Dog, Cat, Bird, Rabbit, Trash2, Camera, Loader2 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
+import { PageTransition } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { PaywallModal } from "@/components/triage/PaywallModal";
 import { useUpgradeTriggers } from "@/hooks/useUpgradeTriggers";
@@ -133,97 +135,92 @@ function PetsPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <header className="safe-area-top glass sticky top-0 z-40">
-        <div className="flex items-center justify-between px-5 py-4 max-w-2xl mx-auto">
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-2xl bg-primary/10">
-              <PawPrint className="h-6 w-6 text-primary" />
-            </div>
-            <h1 className="text-lg font-semibold text-foreground">{t("pets.title")}</h1>
-          </div>
+    <PageTransition className="min-h-screen">
+      <PageHeader
+        title={t("pets.title")}
+        icon={<PawPrint className="h-4 w-4 text-primary" />}
+        rightContent={
           <Button size="sm" onClick={handleAddPetClick}>
-              <Plus className="h-4 w-4 mr-1.5" />
-              {t("pets.addPet")}
+            <Plus className="h-4 w-4 mr-1.5" />
+            {t("pets.addPet")}
           </Button>
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild><span className="hidden" /></DialogTrigger>
-            <DialogContent className="mx-5 rounded-[20px] max-h-[85vh] flex flex-col">
-              <DialogHeader className="flex-shrink-0">
-                <DialogTitle className="text-xl">{t("pets.addNewPet")}</DialogTitle>
-                <DialogDescription className="sr-only">{t("pets.fillDetails")}</DialogDescription>
-              </DialogHeader>
-              <div className="flex-1 overflow-y-auto space-y-5 py-4 -mx-6 px-6">
-                <div className="flex justify-center">
-                  <div onClick={() => fileInputRef.current?.click()} className="relative cursor-pointer group">
-                    <Avatar className="h-20 w-20 rounded-2xl">
-                      <AvatarImage src={photoPreview || undefined} alt="Pet photo" className="object-cover" />
-                      <AvatarFallback className="rounded-2xl bg-muted">
-                        <Camera className="h-7 w-7 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute inset-0 rounded-2xl bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <Camera className="h-5 w-5 text-white" />
-                    </div>
-                  </div>
-                  <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoSelect} className="hidden" />
-                </div>
-                <p className="text-xs text-center text-muted-foreground -mt-2">{t("pets.tapPhoto")}</p>
-
-                <div>
-                  <Label htmlFor="name" className="text-muted-foreground">{t("pets.name")} *</Label>
-                  <Input id="name" value={newPet.name} onChange={(e) => setNewPet({ ...newPet, name: e.target.value })}
-                    onBlur={() => setTouched(t => ({ ...t, name: true }))} placeholder="Buddy"
-                    className={`mt-1.5 rounded-xl h-11 ${nameError ? 'ring-2 ring-destructive' : ''}`} maxLength={50} />
-                  {nameError && <p className="text-xs text-destructive mt-1">{nameError}</p>}
-                </div>
-                <div>
-                  <Label htmlFor="species" className="text-muted-foreground">{t("onboarding.species")} *</Label>
-                  <Select value={newPet.species} onValueChange={(v) => setNewPet({ ...newPet, species: v })}>
-                    <SelectTrigger className="mt-1.5 rounded-xl h-11"><SelectValue /></SelectTrigger>
-                    <SelectContent className="rounded-xl">
-                      <SelectItem value="dog">{t("species.dog.plain")}</SelectItem>
-                      <SelectItem value="cat">{t("species.cat.plain")}</SelectItem>
-                      <SelectItem value="bird">{t("species.bird.plain")}</SelectItem>
-                      <SelectItem value="rabbit">{t("species.rabbit.plain")}</SelectItem>
-                      <SelectItem value="other">{t("species.other.plain")}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="breed" className="text-muted-foreground">{t("onboarding.breed")}</Label>
-                  <Input id="breed" value={newPet.breed} onChange={(e) => setNewPet({ ...newPet, breed: e.target.value })}
-                    placeholder="Golden Retriever" className="mt-1.5 rounded-xl h-11" />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label htmlFor="age" className="text-muted-foreground">{t("onboarding.age")}</Label>
-                    <Input id="age" type="number" value={newPet.age} onChange={(e) => setNewPet({ ...newPet, age: e.target.value })}
-                      placeholder="3" className="mt-1.5 rounded-xl h-11" />
-                  </div>
-                  <div>
-                    <Label htmlFor="weight" className="text-muted-foreground">{t("onboarding.weight")}</Label>
-                    <Input id="weight" type="number" step="0.1" value={newPet.weight}
-                      onChange={(e) => setNewPet({ ...newPet, weight: e.target.value })}
-                      placeholder="25" className="mt-1.5 rounded-xl h-11" />
-                  </div>
+        }
+      />
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild><span className="hidden" /></DialogTrigger>
+        <DialogContent className="mx-5 rounded-[20px] max-h-[85vh] flex flex-col">
+          <DialogHeader className="flex-shrink-0">
+            <DialogTitle className="text-xl">{t("pets.addNewPet")}</DialogTitle>
+            <DialogDescription className="sr-only">{t("pets.fillDetails")}</DialogDescription>
+          </DialogHeader>
+          <div className="flex-1 overflow-y-auto space-y-5 py-4 -mx-6 px-6">
+            <div className="flex justify-center">
+              <div onClick={() => fileInputRef.current?.click()} className="relative cursor-pointer group">
+                <Avatar className="h-20 w-20 rounded-2xl">
+                  <AvatarImage src={photoPreview || undefined} alt="Pet photo" className="object-cover" />
+                  <AvatarFallback className="rounded-2xl bg-muted">
+                    <Camera className="h-7 w-7 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute inset-0 rounded-2xl bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Camera className="h-5 w-5 text-white" />
                 </div>
               </div>
-              <div className="flex-shrink-0 pt-4 border-t border-border">
-                <Button onClick={() => addPetMutation.mutate(newPet)}
-                  disabled={!newPet.name || addPetMutation.isPending || isUploading}
-                  className="w-full h-11 active:scale-[0.98] transition-transform">
-                  {addPetMutation.isPending || isUploading ? (
-                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" />{t("pets.adding")}</>
-                  ) : t("pets.addPet")}
-                </Button>
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoSelect} className="hidden" />
+            </div>
+            <p className="text-xs text-center text-muted-foreground -mt-2">{t("pets.tapPhoto")}</p>
+            <div>
+              <Label htmlFor="name" className="text-muted-foreground">{t("pets.name")} *</Label>
+              <Input id="name" value={newPet.name} onChange={(e) => setNewPet({ ...newPet, name: e.target.value })}
+                onBlur={() => setTouched(t => ({ ...t, name: true }))} placeholder="Buddy"
+                className={`mt-1.5 rounded-xl h-11 ${nameError ? 'ring-2 ring-destructive' : ''}`} maxLength={50} />
+              {nameError && <p className="text-xs text-destructive mt-1">{nameError}</p>}
+            </div>
+            <div>
+              <Label htmlFor="species" className="text-muted-foreground">{t("onboarding.species")} *</Label>
+              <Select value={newPet.species} onValueChange={(v) => setNewPet({ ...newPet, species: v })}>
+                <SelectTrigger className="mt-1.5 rounded-xl h-11"><SelectValue /></SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  <SelectItem value="dog">{t("species.dog.plain")}</SelectItem>
+                  <SelectItem value="cat">{t("species.cat.plain")}</SelectItem>
+                  <SelectItem value="bird">{t("species.bird.plain")}</SelectItem>
+                  <SelectItem value="rabbit">{t("species.rabbit.plain")}</SelectItem>
+                  <SelectItem value="other">{t("species.other.plain")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="breed" className="text-muted-foreground">{t("onboarding.breed")}</Label>
+              <Input id="breed" value={newPet.breed} onChange={(e) => setNewPet({ ...newPet, breed: e.target.value })}
+                placeholder="Golden Retriever" className="mt-1.5 rounded-xl h-11" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label htmlFor="age" className="text-muted-foreground">{t("onboarding.age")}</Label>
+                <Input id="age" type="number" value={newPet.age} onChange={(e) => setNewPet({ ...newPet, age: e.target.value })}
+                  placeholder="3" className="mt-1.5 rounded-xl h-11" />
               </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </header>
+              <div>
+                <Label htmlFor="weight" className="text-muted-foreground">{t("onboarding.weight")}</Label>
+                <Input id="weight" type="number" step="0.1" value={newPet.weight}
+                  onChange={(e) => setNewPet({ ...newPet, weight: e.target.value })}
+                  placeholder="25" className="mt-1.5 rounded-xl h-11" />
+              </div>
+            </div>
+          </div>
+          <div className="flex-shrink-0 pt-4 border-t border-border">
+            <Button onClick={() => addPetMutation.mutate(newPet)}
+              disabled={!newPet.name || addPetMutation.isPending || isUploading}
+              className="w-full h-11 active:scale-[0.98] transition-transform">
+              {addPetMutation.isPending || isUploading ? (
+                <><Loader2 className="h-4 w-4 mr-2 animate-spin" />{t("pets.adding")}</>
+              ) : t("pets.addPet")}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-      <div className="px-5 py-8 max-w-2xl mx-auto">
+      <div className="px-5 py-5 max-w-2xl mx-auto">
         {isLoading ? (
           <div className="space-y-5">
             {[1, 2].map((i) => (
@@ -239,12 +236,12 @@ function PetsPage() {
             ))}
           </div>
         ) : pets.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-[28px] bg-primary/10 mb-8">
-              <PawPrint className="h-12 w-12 text-primary" />
+          <div className="text-center py-10">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-5">
+              <PawPrint className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="text-2xl font-semibold text-foreground mb-3">{t("pets.noPets")}</h2>
-            <p className="text-muted-foreground mb-8">{t("pets.noPetsDesc")}</p>
+            <h2 className="text-lg font-semibold text-foreground mb-2">{t("pets.noPets")}</h2>
+            <p className="text-sm text-muted-foreground mb-5">{t("pets.noPetsDesc")}</p>
             <Button onClick={() => setIsOpen(true)} size="lg">
               <Plus className="h-5 w-5 mr-2" />
               {t("pets.addFirstPet")}
@@ -257,18 +254,18 @@ function PetsPage() {
               const isActive = pet.id === activePet?.id;
               return (
                 <button key={pet.id} onClick={() => setActivePetId(pet.id)}
-                  className={`w-full text-left apple-card p-5 hover:shadow-apple-lg transition-all ${isActive ? 'ring-2 ring-primary' : ''}`}>
+                  className={`w-full text-left apple-card p-4 hover:shadow-apple-lg transition-all ${isActive ? 'ring-2 ring-primary' : ''}`}>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <Avatar className="h-16 w-16 rounded-2xl">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-12 w-12 rounded-xl">
                         <AvatarImage src={pet.photo_url || undefined} alt={pet.name} className="object-cover" />
-                        <AvatarFallback className="rounded-2xl bg-primary/10">
-                          <Icon className="h-8 w-8 text-primary" />
+                        <AvatarFallback className="rounded-xl bg-primary/10">
+                          <Icon className="h-6 w-6 text-primary" />
                         </AvatarFallback>
                       </Avatar>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-lg text-foreground">{pet.name}</h3>
+                          <h3 className="font-semibold text-base text-foreground">{pet.name}</h3>
                           {isActive && (
                             <span className="text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{t("general.active")}</span>
                           )}
@@ -316,7 +313,7 @@ function PetsPage() {
         onSubscribe={() => setShowPaywall(false)}
         triggerContext="Premium allows multiple pets and full household tracking."
       />
-    </div>
+    </PageTransition>
   );
 }
 

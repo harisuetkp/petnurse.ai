@@ -22,9 +22,11 @@ export function AppLayout() {
     staleTime: 30000,
     gcTime: 300000,
   });
+  // Hide bottom nav on landing page (non-auth) — it shows its own nav
+  const isLandingOrAuth = location.pathname === "/auth" || location.pathname === "/forgot-password" || location.pathname === "/reset-password";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <NewBlogNotification />
       {/* Inbox Button - Fixed position for logged-in users (not on admin page) */}
       {session && !isAdminPage && (
@@ -32,10 +34,11 @@ export function AppLayout() {
           <UserInbox />
         </div>
       )}
-      <main className="safe-area-bottom">
+      <main className="flex-1 pb-[calc(var(--nav-height)+var(--safe-area-bottom)+1rem)]">
         <Outlet />
       </main>
       <BottomNav />
+      {!isLandingOrAuth && <BottomNav />}
     </div>
   );
 }

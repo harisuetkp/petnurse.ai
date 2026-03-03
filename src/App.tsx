@@ -3,12 +3,14 @@ import { Capacitor } from "@capacitor/core";
 import { App as CapacitorApp } from "@capacitor/app";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { SplashScreen } from "@capacitor/splash-screen";
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "./components/AppLayout";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { UpdatePrompt } from "./components/UpdatePrompt";
 import { ActivePetProvider } from "./contexts/ActivePetContext";
@@ -42,6 +44,7 @@ const SymptomPage = lazy(() => import("./pages/SymptomPage"));
 const ToxinsIndexPage = lazy(() => import("./pages/ToxinsIndexPage"));
 const ToxinPage = lazy(() => import("./pages/ToxinPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
+const DebugPage = lazy(() => import("./pages/DebugPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -81,6 +84,7 @@ function AppRoutes() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Public SEO routes — no language gate */}
@@ -116,6 +120,7 @@ function AppRoutes() {
                     <Route path="/influencer" element={<InfluencerPage />} />
                     <Route path="/reviews" element={<CustomerStoriesPage />} />
                     <Route path="/community" element={<CommunityPage />} />
+                    <Route path="/debug" element={<DebugPage />} />
                   </Route>
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/forgot-password" element={<ForgotPasswordPage />} />

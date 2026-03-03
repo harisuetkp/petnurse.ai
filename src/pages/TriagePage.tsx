@@ -190,7 +190,7 @@ function TriagePage() {
       />
       <TriageHowToSchema />
       {/* Header */}
-      <header className="safe-area-top glass sticky top-0 z-40">
+      <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-lg border-b border-border/30 pt-safe">
         <div className="flex items-center justify-between px-5 py-3 max-w-2xl mx-auto">
           <div className="flex items-center gap-3">
             {session ? (
@@ -253,21 +253,21 @@ function TriagePage() {
           {!hasStarted ? (
             /* Landing State */
             <div className="text-center py-2 animate-fade-in">
-              <div className="flex justify-center mb-3">
+              <div className="flex justify-center mb-2">
                 <img 
                   src={petnurseLogo} 
                   alt="PetNurse AI" 
                   loading="eager"
                   fetchPriority="high"
                   decoding="sync"
-                  className="h-28 w-28 sm:h-36 sm:w-36 rounded-[28px] object-contain"
+                  className="h-20 w-20 sm:h-28 sm:w-28 rounded-[20px] object-contain"
                 />
               </div>
               
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1.5">
                 {activePet ? `Assess ${activePet.name}'s Health` : "Pet Health Assessment"}
               </h2>
-              <p className="text-muted-foreground mb-6 max-w-sm mx-auto text-sm leading-relaxed">
+              <p className="text-muted-foreground mb-4 max-w-sm mx-auto text-xs leading-relaxed">
                 Complete a structured clinical assessment to determine the urgency of your pet's symptoms.
               </p>
               
@@ -275,7 +275,7 @@ function TriagePage() {
               <Button
                 onClick={handleStart}
                 size="lg"
-                className="h-14 w-full max-w-xs mx-auto px-6 rounded-2xl text-base font-semibold shadow-lg"
+                className="h-11 w-full max-w-xs mx-auto px-5 rounded-2xl text-sm font-semibold shadow-lg"
               >
                 <Stethoscope className="h-5 w-5 mr-2" />
                 Begin Assessment

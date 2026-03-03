@@ -206,7 +206,7 @@ export function OnboardingWizard({ userId, onComplete }: OnboardingWizardProps) 
           </div>
         )}
 
-        {/* Step 3: Success */}
+        {/* Step 3: Success — drive to first value moment */}
         {step === 3 && (
           <div className="text-center space-y-6 animate-in fade-in duration-500">
             <div className="mx-auto w-20 h-20 rounded-3xl bg-safe-green/10 flex items-center justify-center">
@@ -216,12 +216,21 @@ export function OnboardingWizard({ userId, onComplete }: OnboardingWizardProps) 
               <h2 className="text-2xl font-bold text-foreground">{t("onboarding.allSet")}</h2>
               <p className="text-muted-foreground mt-2">{t("onboarding.allSetDesc", { name: petName })}</p>
             </div>
+
+            {/* Nudge to immediate value */}
+            <div className="apple-card p-4 text-left space-y-2">
+              <p className="text-xs font-semibold text-primary uppercase tracking-wide">Your first free check</p>
+              <p className="text-sm text-foreground leading-relaxed">
+                Something worrying you about {petName}? Run a free health check now — it takes 30 seconds.
+              </p>
+            </div>
+
             <div className="space-y-3">
-              <Button size="lg" className="w-full h-14 rounded-2xl text-base" onClick={onComplete}>
-                <Sparkles className="h-5 w-5 mr-2" /> {t("onboarding.goToDashboard")}
+              <Button size="lg" className="w-full h-14 rounded-2xl text-base" onClick={() => { onComplete(); navigate("/triage?start=true"); }}>
+                <Sparkles className="h-5 w-5 mr-2" /> Check {petName}'s Health Now
               </Button>
-              <Button variant="outline" size="lg" className="w-full h-14 rounded-2xl text-base" onClick={() => { onComplete(); navigate("/triage?start=true"); }}>
-                {t("onboarding.startAssessment")}
+              <Button variant="outline" size="lg" className="w-full h-14 rounded-2xl text-base" onClick={onComplete}>
+                {t("onboarding.goToDashboard")}
               </Button>
             </div>
             <Badge variant="secondary" className="text-xs">
