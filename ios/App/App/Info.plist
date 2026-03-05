@@ -28,19 +28,21 @@
     <key>NSAppTransportSecurity</key>
     <dict/>
     <key>NSCameraUsageDescription</key>
-    <string>Processing your camera input for scanning purposes </string>
+    <string>PetNurse AI needs camera access to take photos of your pet for health assessments and profile pictures.</string>
     <key>NSHumanReadableCopyright</key>
     <string></string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>To see nearby Chargers allow your current location</string>
+    <string>PetNurse AI uses your location to find nearby veterinary clinics and emergency pet care services.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>PetNurse AI uses your location to find nearby veterinary clinics and emergency pet care services.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
+    <string>PetNurse AI uses your location to find nearby veterinary clinics and emergency pet care services.</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>To record your property video allow camera and mic to record video and add them to attachment fields.</string>
+    <string>PetNurse AI needs microphone access to record audio for pet health assessments.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
+    <string>PetNurse AI needs access to save pet health reports and photos to your library.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Granting access will allow you to take photos and add them to attachment fields.</string>
+    <string>PetNurse AI needs photo library access to select pet photos for profiles and health assessments.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
