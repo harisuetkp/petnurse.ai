@@ -121,8 +121,8 @@ export default function CustomerStoriesPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50 safe-area-top">
-        <div className="px-5 py-3 flex items-center gap-3 max-w-2xl mx-auto">
+      <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+        <div className="px-5 pb-3 header-pt flex items-center gap-3 max-w-2xl mx-auto">
           <Link to="/">
             <Button variant="ghost" size="icon" className="rounded-full">
               <ArrowLeft className="h-5 w-5" />

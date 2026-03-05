@@ -51,7 +51,7 @@ export default function ForgotPasswordPage() {
   if (isEmailSent) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
-        <header className="safe-area-top p-5">
+        <header className="px-5 pb-3 header-pt">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="rounded-xl">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
@@ -86,7 +86,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
-      <header className="safe-area-top p-5">
+      <header className="px-5 pb-3 header-pt">
         <Button variant="ghost" size="sm" onClick={() => navigate("/auth")} className="rounded-xl">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Sign In
@@ -144,7 +144,7 @@ export default function ForgotPasswordPage() {
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             Remember your password?{" "}
-            <button 
+            <button
               onClick={() => navigate("/auth")}
               className="text-primary hover:underline font-medium"
             >

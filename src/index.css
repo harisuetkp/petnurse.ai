@@ -26,7 +26,8 @@
     /* Primary: Deep Indigo #1E3A8A */
     --primary: 221 64% 33%;
     --primary-foreground: 0 0% 100%;
-    --primary-accent: 195 100% 50%; /* Accent Teal #00C2FF */
+    --primary-accent: 195 100% 50%;
+    /* Accent Teal #00C2FF */
 
     /* Secondary: Light Gray #E5E7EB */
     --secondary: 220 13% 91%;
@@ -34,7 +35,8 @@
 
     /* Muted: Neutral Gray surface */
     --muted: 210 17% 96%;
-    --muted-foreground: 220 9% 46%; /* Mid Gray #6B7280 */
+    --muted-foreground: 220 9% 46%;
+    /* Mid Gray #6B7280 */
 
     /* Accent: Electric Teal #00C2FF */
     --accent: 195 100% 95%;
@@ -65,7 +67,8 @@
     --radius: 0.75rem;
 
     /* Sidebar */
-    --sidebar-background: 214 50% 11%; /* Dark Charcoal */
+    --sidebar-background: 214 50% 11%;
+    /* Dark Charcoal */
     --sidebar-foreground: 210 17% 95%;
     --sidebar-primary: 195 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -153,7 +156,12 @@
     text-size-adjust: 100%;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight text-foreground;
   }
 
@@ -162,50 +170,60 @@
   }
 
   /* Safe area for mobile notch */
-  .safe-area-top, .pt-safe {
-    padding-top: env(safe-area-inset-top, 0px);
+  .safe-area-top,
+  .pt-safe {
+    padding-top: min(env(safe-area-inset-top, 0px), 20px) !important;
   }
 
-  .safe-area-bottom {
-    padding-bottom: calc(var(--nav-height) + var(--safe-area-bottom));
-  }
-
-  /* Capacitor iOS: expose safe area as CSS custom properties for JS access */
-  :root {
-    --sat: env(safe-area-inset-top, 0px);
-    --sar: env(safe-area-inset-right, 0px);
-    --sab: env(safe-area-inset-bottom, 0px);
-    --sal: env(safe-area-inset-left, 0px);
-  }
-
-  /* Prevent overflow and ensure proper scrolling on iOS */
-  html, body {
-    overflow-x: hidden;
-    overscroll-behavior-y: none;
-  }
-
-  /* iOS input zoom prevention (font must be >= 16px) */
-  input, select, textarea {
-    font-size: 16px !important;
-  }
-
-  /* Fix iOS fixed positioning issues in Capacitor */
-  .bottom-nav {
-    position: fixed;
-  }
-
-  /* Native-like momentum scrolling */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Prevent pull-to-refresh in Capacitor */
-  body {
-    overscroll-behavior-y: contain;
+  /* Optimized header padding for mobile apps to reduce excessive top space */
+  .header-pt {
+    padding-top: min(env(safe-area-inset-top, 0px) + 8px, 20px) !important;
   }
 }
 
+.safe-area-bottom {
+  padding-bottom: calc(var(--nav-height) + var(--safe-area-bottom));
+}
+
+/* Capacitor iOS: expose safe area as CSS custom properties for JS access */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+/* Prevent overflow and ensure proper scrolling on iOS */
+html,
+body {
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+/* iOS input zoom prevention (font must be >= 16px) */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
+/* Fix iOS fixed positioning issues in Capacitor */
+.bottom-nav {
+  position: fixed;
+}
+
+/* Native-like momentum scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent pull-to-refresh in Capacitor */
+body {
+  overscroll-behavior-y: contain;
+}
+
 @layer components {
+
   /* Apple-style glassmorphism */
   .glass {
     background: rgba(255, 255, 255, 0.8);
@@ -278,6 +296,7 @@
 }
 
 @layer utilities {
+
   /* Hide scrollbar */
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -290,7 +309,7 @@
 
   /* Apple-style text gradient */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(211,100%,45%)] to-[hsl(211,100%,60%)];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[hsl(211, 100%, 45%)] to-[hsl(211, 100%, 60%)];
   }
 
   /* Container with Apple spacing */
@@ -300,9 +319,12 @@
 }
 
 @keyframes pulse-red {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 hsl(var(--emergency-red) / 0.3);
   }
+
   50% {
     box-shadow: 0 0 0 10px hsl(var(--emergency-red) / 0);
   }
@@ -314,6 +336,7 @@
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -325,6 +348,7 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   to {
     opacity: 0;
     transform: translateY(-8px);
@@ -336,6 +360,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -359,18 +384,17 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    hsl(var(--muted)) 25%,
-    hsl(var(--muted) / 0.5) 50%,
-    hsl(var(--muted)) 75%
-  );
+  background: linear-gradient(90deg,
+      hsl(var(--muted)) 25%,
+      hsl(var(--muted) / 0.5) 50%,
+      hsl(var(--muted)) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }

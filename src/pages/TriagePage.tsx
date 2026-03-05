@@ -34,9 +34,9 @@ function TriagePage() {
   const { pets, activePet, setActivePetId } = useActivePet();
   const [isPremium, setIsPremium] = useState(false);
   // Auto-start if there's a saved report (returning from payment) or if start param is set
-  const [hasStarted, setHasStarted] = useState(() => 
-    searchParams.get("start") === "true" || 
-    searchParams.get("payment") === "success" || 
+  const [hasStarted, setHasStarted] = useState(() =>
+    searchParams.get("start") === "true" ||
+    searchParams.get("payment") === "success" ||
     hasSavedTriageReport()
   );
   const [historySaved, setHistorySaved] = useState(false);
@@ -99,7 +99,7 @@ function TriagePage() {
       try {
         // Check subscription status
         const { data, error } = await supabase.functions.invoke("check-subscription");
-        
+
         if (!error && data?.subscribed) {
           setIsPremium(true);
           // Start the assessment automatically if not already started
@@ -190,8 +190,8 @@ function TriagePage() {
       />
       <TriageHowToSchema />
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-lg border-b border-border/30 pt-safe">
-        <div className="flex items-center justify-between px-5 py-3 max-w-2xl mx-auto">
+      <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-lg border-b border-border/30">
+        <div className="flex items-center justify-between px-5 pb-2 max-w-2xl mx-auto header-pt">
           <div className="flex items-center gap-3">
             {session ? (
               <PetSelector
@@ -212,7 +212,7 @@ function TriagePage() {
               </div>
             )}
           </div>
-          
+
           <div className="flex items-center gap-2">
             {session && (
               <Sheet>
@@ -231,7 +231,7 @@ function TriagePage() {
                 </SheetContent>
               </Sheet>
             )}
-            
+
             {hasStarted && !isComplete && (
               <Button
                 variant="ghost"
@@ -248,29 +248,29 @@ function TriagePage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 py-6">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-5 pt-0 pb-6">
         <div className="max-w-2xl mx-auto">
           {!hasStarted ? (
             /* Landing State */
-            <div className="text-center py-2 animate-fade-in">
+            <div className="text-center pt-0 pb-2 animate-fade-in">
               <div className="flex justify-center mb-2">
-                <img 
-                  src={petnurseLogo} 
-                  alt="PetNurse AI" 
+                <img
+                  src={petnurseLogo}
+                  alt="PetNurse AI"
                   loading="eager"
                   fetchPriority="high"
                   decoding="sync"
                   className="h-20 w-20 sm:h-28 sm:w-28 rounded-[20px] object-contain"
                 />
               </div>
-              
+
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1.5">
                 {activePet ? `Assess ${activePet.name}'s Health` : "Pet Health Assessment"}
               </h2>
               <p className="text-muted-foreground mb-4 max-w-sm mx-auto text-xs leading-relaxed">
                 Complete a structured clinical assessment to determine the urgency of your pet's symptoms.
               </p>
-              
+
               {/* Start Assessment CTA - Mobile-optimized */}
               <Button
                 onClick={handleStart}
@@ -310,7 +310,7 @@ function TriagePage() {
             isPremium && !report.isPremiumRequired ? (
               <TriageReport report={report} onReset={handleReset} />
             ) : (
-            <LockedResultCard
+              <LockedResultCard
                 onUnlock={handleUnlock}
                 reportStatus={report.status}
                 reportTitle={report.title}
@@ -342,13 +342,13 @@ function TriagePage() {
             />
           ) : (
             /* Assessment Steps */
-            <div className="space-y-6">
+            <div className="space-y-4">
               <DiagnosticProgress
                 currentStep={currentStep}
                 totalSteps={totalSteps}
                 progress={progress}
               />
-              
+
               {currentStepData ? (
                 <DiagnosticStepCard
                   step={currentStepData}

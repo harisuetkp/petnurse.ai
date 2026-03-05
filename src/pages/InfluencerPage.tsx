@@ -1,10 +1,10 @@
 import { useState, useEffect, forwardRef, useCallback } from "react";
-import { 
-  Copy, 
-  Check, 
-  TrendingUp, 
-  Users, 
-  MousePointer, 
+import {
+  Copy,
+  Check,
+  TrendingUp,
+  Users,
+  MousePointer,
   DollarSign,
   Wallet,
   ExternalLink,
@@ -63,11 +63,11 @@ const getProjectedEarningsData = (currentEarnings: number) => {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const currentMonth = new Date().getMonth();
   const baseMultiplier = currentEarnings > 0 ? currentEarnings / 100 : 1;
-  
+
   return months.map((month, index) => ({
     month,
-    earnings: index <= currentMonth 
-      ? Math.round(baseMultiplier * (index + 1) * 50) 
+    earnings: index <= currentMonth
+      ? Math.round(baseMultiplier * (index + 1) * 50)
       : Math.round(baseMultiplier * (index + 1) * 75),
   }));
 };
@@ -84,16 +84,16 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
   const fetchData = useCallback(async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         navigate("/auth");
         return;
       }
 
       const { data: result, error } = await supabase.functions.invoke("get-influencer-data");
-      
+
       if (error) throw error;
-      
+
       setData(result);
     } catch {
       toast({
@@ -134,7 +134,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               totalClicks: prev.stats.totalClicks + 1,
             }
           } : prev);
-          
+
           toast({
             title: "🎯 New Click!",
             description: "Someone clicked your referral link",
@@ -158,12 +158,12 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
             stats: {
               ...prev.stats,
               totalSignups: prev.stats.totalSignups + 1,
-              conversionRate: prev.stats.totalClicks > 0 
+              conversionRate: prev.stats.totalClicks > 0
                 ? Math.round(((prev.stats.totalSignups + 1) / prev.stats.totalClicks) * 100 * 100) / 100
                 : 0,
             }
           } : prev);
-          
+
           toast({
             title: "🎉 New Sign-up!",
             description: "A new user signed up using your referral",
@@ -183,7 +183,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
         },
         (payload) => {
           const newCommission = payload.new as { amount: number; status: string; created_at: string };
-          
+
           setData(prev => prev && prev.stats ? {
             ...prev,
             stats: {
@@ -192,15 +192,15 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               activeReferrals: prev.stats.activeReferrals + 1,
             },
             recentCommissions: [
-              { 
-                amount: newCommission.amount, 
-                status: newCommission.status, 
-                date: new Date(newCommission.created_at).toLocaleDateString() 
-              }, 
+              {
+                amount: newCommission.amount,
+                status: newCommission.status,
+                date: new Date(newCommission.created_at).toLocaleDateString()
+              },
               ...(prev.recentCommissions || []).slice(0, 9)
             ],
           } : prev);
-          
+
           toast({
             title: "💰 New Commission!",
             description: `You earned $${Number(newCommission.amount).toFixed(2)}`,
@@ -218,7 +218,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
 
   const handleCopyLink = async () => {
     if (!data?.referralUrl) return;
-    
+
     try {
       await navigator.clipboard.writeText(data.referralUrl);
       setCopied(true);
@@ -240,9 +240,9 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
     setConnectingStripe(true);
     try {
       const { data: result, error } = await supabase.functions.invoke("create-connect-onboarding");
-      
+
       if (error) throw error;
-      
+
       if (result?.url) {
         window.open(result.url, "_blank");
       }
@@ -276,13 +276,13 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
   if (!data?.isInfluencer) {
     return (
       <div className="min-h-screen bg-background">
-        <header className="safe-area-top border-b border-border/50 bg-card/80 backdrop-blur-lg sticky top-0 z-40">
-          <div className="flex items-center gap-4 px-6 py-4 max-w-6xl mx-auto">
+        <header className="border-b border-border/50 bg-card/80 backdrop-blur-lg sticky top-0 z-40">
+          <div className="flex items-center gap-4 px-6 pb-4 header-pt max-w-6xl mx-auto">
             <img src={petnurseLogo} alt="PetNurse AI" className="h-10 w-10 rounded-xl object-cover" />
             <h1 className="text-lg font-semibold text-foreground">Partner Portal</h1>
           </div>
         </header>
-        
+
         <div className="px-6 py-20 max-w-md mx-auto text-center">
           <div className="w-16 h-16 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-6">
             <AlertCircle className="h-8 w-8 text-muted-foreground" />
@@ -306,14 +306,14 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
   return (
     <div className="min-h-screen bg-background">
       {/* Clean Header */}
-      <header className="safe-area-top border-b border-border/50 bg-card/80 backdrop-blur-lg sticky top-0 z-40">
-        <div className="flex items-center justify-between px-4 sm:px-6 py-4 max-w-6xl mx-auto">
+      <header className="border-b border-border/50 bg-card/80 backdrop-blur-lg sticky top-0 z-40">
+        <div className="flex items-center justify-between px-4 sm:px-6 pb-4 header-pt max-w-6xl mx-auto">
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="relative">
-              <img 
-                src={petnurseLogo} 
-                alt="PetNurse AI" 
-                className="h-10 w-10 rounded-xl object-cover ring-1 ring-border/50" 
+              <img
+                src={petnurseLogo}
+                alt="PetNurse AI"
+                className="h-10 w-10 rounded-xl object-cover ring-1 ring-border/50"
               />
               <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-safe-green rounded-full ring-2 ring-background" />
             </div>
@@ -326,17 +326,17 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="hidden sm:flex gap-1.5 text-xs font-medium">
               <Activity className="h-3 w-3 text-safe-green" />
               Live
             </Badge>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={handleRefresh} 
-              disabled={refreshing} 
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleRefresh}
+              disabled={refreshing}
               className="rounded-xl h-9 w-9"
             >
               <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
@@ -346,11 +346,11 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
       </header>
 
       <div className="px-4 sm:px-6 py-6 sm:py-8 max-w-6xl mx-auto space-y-6 sm:space-y-8 safe-area-bottom">
-        
+
         {/* Commission Banner - Clean & Minimal */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-6 sm:p-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent)] pointer-events-none" />
-          
+
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <p className="text-sm font-medium opacity-80 mb-1">Your Commission Rate</p>
@@ -362,7 +362,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
                 Earn on every subscription payment, forever. No caps.
               </p>
             </div>
-            
+
             <div className="flex flex-col items-start sm:items-end gap-1 bg-white/10 rounded-xl px-4 py-3 backdrop-blur-sm">
               <span className="text-xs opacity-70">Potential Monthly</span>
               <span className="text-2xl font-bold">$500+</span>
@@ -381,16 +381,16 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               {influencer?.promoCodeDisplay}
             </Badge>
           </div>
-          
-          <div 
+
+          <div
             className="group flex items-center gap-3 bg-muted/40 hover:bg-muted/60 rounded-xl px-4 py-3.5 cursor-pointer transition-all border border-transparent hover:border-primary/20"
             onClick={handleCopyLink}
           >
             <p className="flex-1 font-mono text-sm text-foreground truncate">
               {referralUrl}
             </p>
-            <Button 
-              size="sm" 
+            <Button
+              size="sm"
               className={`shrink-0 gap-2 rounded-lg transition-all ${copied ? "bg-safe-green hover:bg-safe-green" : ""}`}
             >
               {copied ? (
@@ -406,7 +406,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               )}
             </Button>
           </div>
-          
+
           <p className="text-xs text-muted-foreground text-center mt-3">
             Share on Instagram, YouTube, TikTok, or directly with pet owners
           </p>
@@ -441,7 +441,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
         </div>
 
         {/* Balance Cards */}
-        <BalanceCard 
+        <BalanceCard
           available={stats?.pendingBalance || 0}
           lifetime={stats?.totalEarned || 0}
         />
@@ -459,7 +459,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
                   Link your bank account to receive commission payouts
                 </p>
               </div>
-              <Button 
+              <Button
                 onClick={handleConnectStripe}
                 disabled={connectingStripe}
                 size="lg"
@@ -496,7 +496,7 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
                   </p>
                 </div>
               </div>
-              <Button 
+              <Button
                 onClick={handleConnectStripe}
                 disabled={connectingStripe}
                 variant="outline"
@@ -524,9 +524,9 @@ const InfluencerPage = forwardRef<HTMLDivElement>(function InfluencerPage(_props
               Sample Growth
             </Badge>
           </div>
-          
+
           <EarningsChart data={getProjectedEarningsData(stats?.totalEarned || 0)} />
-          
+
           <p className="text-xs text-muted-foreground text-center mt-4">
             Based on 10-15 new referrals per month
           </p>

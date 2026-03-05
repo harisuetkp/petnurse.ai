@@ -204,7 +204,7 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <header className="safe-area-top p-5">
+      <header className="px-5 pb-3 header-pt">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="rounded-xl">
           <ArrowLeft className="h-4 w-4 mr-2" />
           {t("auth.back")}

@@ -38,7 +38,7 @@ function CarePage() {
 
   const { isPremium } = useUpgradeTriggers(session?.user?.id);
 
-  
+
 
   const { upcomingReminders, completedReminders, isLoading, createReminder, completeReminder, deleteReminder, reminders } =
     useCareReminders(session?.user?.id, activePet?.id);
@@ -58,7 +58,7 @@ function CarePage() {
     <PageTransition className="min-h-screen bg-muted">
       {/* Sticky Header */}
       <header className="sticky top-0 z-40 bg-muted/90 backdrop-blur-xl border-b border-border/20 shadow-sm">
-        <div className="flex items-center gap-2.5 px-4 py-2.5 max-w-lg mx-auto pt-safe">
+        <div className="flex items-center gap-2.5 px-4 pb-2.5 max-w-lg mx-auto header-pt">
           <div
             className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-[hsl(var(--primary-accent))] flex items-center justify-center shrink-0 cursor-pointer"
             onClick={handleDebugTap}
@@ -102,7 +102,7 @@ function CarePage() {
         </div>
       </header>
 
-      <div className="px-4 max-w-lg mx-auto space-y-5 pt-4 pb-28">
+      <div className="px-4 max-w-lg mx-auto space-y-5 pt-1 pb-28">
         {/* 1. Emergency Hero */}
         <EmergencyHero />
 
@@ -118,7 +118,7 @@ function CarePage() {
         {session && (
           <VaccineTracker
             reminders={reminders}
-            onAddReminder={() => {}}
+            onAddReminder={() => { }}
             onComplete={(id) => completeReminder.mutate(id)}
           />
         )}

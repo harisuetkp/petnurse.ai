@@ -8,11 +8,11 @@ export default function TermsOfServicePage() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="safe-area-top glass sticky top-0 z-40">
-        <div className="flex items-center gap-4 px-5 py-4 max-w-2xl mx-auto">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+      <header className="glass sticky top-0 z-40">
+        <div className="px-5 pb-3 header-pt flex items-center justify-between max-w-2xl mx-auto">
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => navigate(-1)}
             className="rounded-xl active:scale-[0.95]"
           >
@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
       <div className="px-5 py-8 max-w-2xl mx-auto">
         <div className="apple-card p-6 space-y-6">
           <p className="text-sm text-muted-foreground">Last updated: January 2025</p>
-          
+
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-foreground">1. Acceptance of Terms</h2>
             <p className="text-sm text-muted-foreground leading-relaxed">

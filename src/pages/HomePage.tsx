@@ -103,10 +103,10 @@ function HomePage() {
   const healthColor = getHealthColor(currentHealthScore);
 
   return (
-    <div className="min-h-screen bg-muted pt-safe">
+    <div className="min-h-screen bg-muted">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-40 bg-muted/90 backdrop-blur-xl border-b border-border/20 shadow-sm px-4 py-2.5">
-        <div className="max-w-lg mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-muted/90 backdrop-blur-xl border-b border-border/20 shadow-sm">
+        <div className="max-w-lg mx-auto flex items-center justify-between px-4 pb-2.5 header-pt">
           <div className="flex items-center gap-2.5">
             <img src={appLogo} alt="PetNurse AI" className="h-8 w-8 rounded-xl" onClick={handleDebugTap} />
             <div>
@@ -448,16 +448,14 @@ function LandingView() {
       />
       <OrganizationSchema />
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50 safe-area-top">
-        <div className="px-5 py-3 flex items-center justify-between max-w-2xl mx-auto">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+        <div className="px-5 pb-3 header-pt flex items-center justify-between max-w-2xl mx-auto">
           <div className="flex items-center gap-2.5">
             <img src={appLogo} alt="PetNurse AI" className="h-8 w-8 rounded-lg" />
             <span className="font-semibold text-foreground text-sm">{t("app.name")}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Link to="/about">
-              <Button variant="ghost" size="sm" className="text-sm">About</Button>
-            </Link>
+
             <Link to="/auth">
               <Button variant="ghost" size="sm" className="text-sm">{t("auth.signIn")}</Button>
             </Link>
@@ -469,7 +467,7 @@ function LandingView() {
       </header>
 
       {/* Hero */}
-      <section className="pt-20 pb-6 px-5">
+      <section className="pt-14 pb-6 px-5">
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
             Is Your Pet Okay? Find Out Now.
@@ -570,8 +568,6 @@ function LandingView() {
           </div>
           <p className="text-xs text-muted-foreground">⚠️ {t("app.disclaimer")}</p>
           <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <Link to="/about" className="hover:text-foreground">About</Link>
-            <span>•</span>
             <a href="mailto:support@petnurseai.com" className="hover:text-foreground">Contact</a>
             <span>•</span>
             <Link to="/privacy-policy" className="hover:text-foreground">{t("general.privacy")}</Link>

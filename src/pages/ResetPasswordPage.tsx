@@ -18,13 +18,13 @@ export default function ResetPasswordPage() {
   const { toast } = useToast();
 
   const errors = useMemo(() => ({
-    password: touched.password && !password 
-      ? "Password is required" 
-      : touched.password && password.length < 6 
-        ? "Password must be at least 6 characters" 
+    password: touched.password && !password
+      ? "Password is required"
+      : touched.password && password.length < 6
+        ? "Password must be at least 6 characters"
         : null,
-    confirmPassword: touched.confirmPassword && password !== confirmPassword 
-      ? "Passwords do not match" 
+    confirmPassword: touched.confirmPassword && password !== confirmPassword
+      ? "Passwords do not match"
       : null,
   }), [password, confirmPassword, touched]);
 
@@ -92,7 +92,7 @@ export default function ResetPasswordPage() {
   if (isResetComplete) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
-        <header className="safe-area-top p-5">
+        <header className="px-5 pb-3 header-pt">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="rounded-xl">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
@@ -122,7 +122,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Header */}
-      <header className="safe-area-top p-5">
+      <header className="px-5 pb-3 header-pt">
         <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="rounded-xl">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back

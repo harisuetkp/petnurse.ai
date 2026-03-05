@@ -142,7 +142,7 @@ function SymptomPage() {
       )}
 
       <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="px-5 py-3 max-w-2xl mx-auto flex items-center gap-3">
+        <div className="px-5 pb-3 header-pt max-w-2xl mx-auto flex items-center gap-3">
           <Link to="/symptoms">
             <Button variant="ghost" size="icon" className="rounded-xl">
               <ArrowLeft className="h-5 w-5" />

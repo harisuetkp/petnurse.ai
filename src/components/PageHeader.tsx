@@ -23,7 +23,7 @@ export function PageHeader({ title, subtitle, icon, showBack = true, rightConten
 
   return (
     <header className={cn("sticky top-0 z-40 bg-background/90 backdrop-blur-lg border-b border-border/30", className)}>
-      <div className="flex items-center gap-2 px-4 py-2.5 max-w-lg mx-auto pt-safe">
+      <div className="flex items-center gap-2 px-4 pb-2.5 max-w-lg mx-auto header-pt">
         {shouldShowBack && (
           <Button
             variant="ghost"
